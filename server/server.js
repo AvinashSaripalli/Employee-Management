@@ -91,28 +91,28 @@ app.post('/api/login', (req, res) => {
   });
 });
 
-// app.get('/api/users-by-month', (req, res) => {
-//   const { companyName } = req.query;
+app.get('/api/users-by-month', (req, res) => {
+  const { companyName } = req.query;
 
-//   if (!companyName) {
-//     return res.status(400).json({ error: 'Company name is required' });
-//   }
+  if (!companyName) {
+    return res.status(400).json({ error: 'Company name is required' });
+  }
 
-//   const query = `
-//     SELECT MONTH(created_at) AS month, COUNT(*) AS userCount 
-//     FROM users 
-//     WHERE companyName = ? 
-//     GROUP BY MONTH(created_at)
-//   `;
+  const query = `
+    SELECT MONTH(created_at) AS month, COUNT(*) AS userCount 
+    FROM users 
+    WHERE companyName = ? 
+    GROUP BY MONTH(created_at)
+  `;
 
-//   db.query(query, [companyName], (err, results) => {
-//     if (err) {
-//       console.error('Database query error:', err);
-//       return res.status(500).json({ error: 'Database error' });
-//     }
-//     res.json(results);
-//   });
-// });
+  db.query(query, [companyName], (err, results) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(results);
+  });
+});
 
 app.get('/api/users', (req, res) => {
   const { companyName, role } = req.query;
