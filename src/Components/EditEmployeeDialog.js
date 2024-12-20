@@ -101,27 +101,14 @@ const EditEmployeeDialog = ({ open, onClose, user, onSave }) => {
     if (!formData.lastName) tempErrors.lastName = "Last name is required.";
     if (!formData.designation) tempErrors.designation = "Designation is required.";
     
-    // if (formData.companyName) {
-    //   const companyDomain = `@${formData.companyName.toLowerCase()}.com`;
-    //   if (!formData.email.endsWith(companyDomain)) {
-    //     tempErrors.email = `Email must end with ${companyDomain}`;
-    //   }
-    // } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-    //   tempErrors.email = "Invalid Email address.";
-    // }
+    
 
     if (!formData.phoneNumber) {
       tempErrors.phoneNumber = "Phone number is required.";
     } else if (!/^\d{10}$/.test(formData.phoneNumber)) {
       tempErrors.phoneNumber = "Phone number must be 10 digits.";
     }
-    // if (!formData.password) 
-    //   tempErrors.password = "Password is required.";
-    // if (!formData.department){
-    //   tempErrors.designation= "Department is required.";
-    // }
-
-    setErrors(tempErrors);
+     setErrors(tempErrors);
     return Object.keys(tempErrors).length === 0;
   };
 
@@ -374,12 +361,7 @@ const EditEmployeeDialog = ({ open, onClose, user, onSave }) => {
             <TextField {...params} label="Technical Skills" sx={{width:535.2}}margin="dense" fullWidth/>
           )}
         />
-        {/* <input 
-        margin='dense'
-          type="file" 
-          name="photo" 
-          onChange={handleFileChange} 
-        /> */}
+       
         
        
       </DialogContent>
