@@ -37,14 +37,6 @@ const AddEmployeeDialog = ({ open, onClose, onSave,employeeId }) => {
       setNewEmployeeId(employeeId);
     }
   }, [open,employeeId]);
-
-  // useEffect(() => {
-  //   if (open) {
-  //     setErrors({});
-  //     setUser(initialUserState);
-  //   }
-  // }, [open]);
-  
   
 
   useEffect(() => {
@@ -72,9 +64,7 @@ const AddEmployeeDialog = ({ open, onClose, onSave,employeeId }) => {
 
   const validate = () => {
     const newErrors = {};
-    // if (!/^[a-zA-Z]+$/.test(user.firstName)) {
-    //   newErrors.firstName = "Enter First Name in letters";
-    // }
+    
     if (!/^[a-zA-Z ]+$/.test(user.firstName)) {
       newErrors.firstName="Name must contain only letters and spaces";
     }
@@ -193,15 +183,7 @@ const AddEmployeeDialog = ({ open, onClose, onSave,employeeId }) => {
             gridTemplateColumns: "repeat(auto-fit, minmax(370px, 1fr))",
           }}
         >
-          <div style={{ display: "flex", alignItems: "flex-start" }}>
-          {/* <TextField
-            label="Employee ID"
-            name="employeeId"
-            
-            variant="outlined"  
-            InputProps={{ readOnly: true }}
-            sx={{ ml: 1, width: "740px", mt: 1,mr:1 }}
-          /> */}
+          <div style={{ display: "flex", alignItems: "flex-start" }}> 
           
           <TextField
             label="Employee ID"
@@ -373,37 +355,6 @@ const AddEmployeeDialog = ({ open, onClose, onSave,employeeId }) => {
               helperText={errors.password}
               sx={{ ml:2.25, width:'350px',mr:1 ,mt:1}} 
             />
-
-              {/* <PhoneInput
-                defaultCountry="in"
-                name="phoneNumber"
-                value={user.phoneNumber}
-                onChange={handlePhoneChange}
-                inputStyle={{
-                  width: '520px',
-                  height: '36px',
-                  padding: '0 12px',
-                  border: '1px solid #ccc',
-                  borderRadius: '4px',
-                  fontSize: '16px',
-                }}
-                  buttonStyle={{
-                      height: '36px',
-                      borderTopLeftRadius: '4px',
-                      borderBottomLeftRadius: '4px',
-                      borderRight: 'none',
-                   
-                    }}
-                    containerStyle={{
-                      width: '520px'
-                    }}
-                  />
-              {errors.phoneNumber && (
-                <Typography color="error" variant="body2" sx={{ marginTop: 1 }}>
-                  {errors.phoneNumber}
-                </Typography>
-              )} */}
-
           </div>
           <div style={{ display: "flex", alignItems: "flex-start",  }}> 
             <Button
