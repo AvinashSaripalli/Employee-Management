@@ -18,8 +18,6 @@ const EmployeesList = ({ onClose }) => {
   const [selectedUsers, setSelectedUsers] = useState([]);
   const [selectedUser, setSelectedUser] = useState(null);
   const [editDialogOpen, setEditDialogOpen] = useState(false);
-  // const [page, setPage] = useState(0);
-  // const [rowsPerPage, setRowsPerPage] = useState(5);
   const [searchValue, setSearchValue] = useState('');
   const [viewDialogOpen, setViewDialogOpen] = useState(false);
   const [viewUser, setViewUser] = useState(null);
@@ -49,28 +47,11 @@ const EmployeesList = ({ onClose }) => {
     setOpenDeleteUser(false);
   };
 
-  // const handleClickOpenAddUser = () => {
-  //   setOpenAddUser(true);
-  // };
-  
-  // const handleClickOpenAddUser = () => {
-  //   const companyName = localStorage.getItem('companyName');
-  //   const employeeIds = users.map((user) => parseInt(user.employeeId)).filter((id) => !isNaN(id)); 
-  
-  //   const maxEmployeeId = employeeIds.length > 0 ? Math.max(...employeeIds) : 0; 
-  //   const nextEmployeeId = maxEmployeeId+1;
-   
-  //   setOpenAddUser(true);
-  //   setSelectedUser({ employeeId: nextEmployeeId }); 
-  // }; 
-  
- 
   const handleClickOpenAddUser = () => {
     const companyName = localStorage.getItem('companyName');
     const employeeIds = users.map((user) => user.employeeId);
   
     const allEmployeesIds = employeeIds
-      //.filter((id) => id.startsWith(companyName)) 
       .map((id) => parseInt(id.replace(companyName, "").match(/\d+/)?.[0], 10)) 
       .filter((num) => !isNaN(num));
   
@@ -80,10 +61,6 @@ const EmployeesList = ({ onClose }) => {
     setOpenAddUser(true);
     setSelectedUser({ employeeId: nextEmployeeId });
   };
-  
-  {/*
-
-  */}
   
   const handleCloseAddUser = () => {
     setOpenAddUser(false);
@@ -153,15 +130,6 @@ const EmployeesList = ({ onClose }) => {
     }
   };
 
-  // const handleChangePage = (event, newPage) => {
-  //   setPage(newPage);
-  // };
-
-  // const handleChangeRowsPerPage = (event) => {
-  //   setRowsPerPage(parseInt(event.target.value, 10));
-  //   setPage(0);
-  // };
-
   const userRole = localStorage.getItem('userRole');
 
   return (
@@ -197,9 +165,7 @@ const EmployeesList = ({ onClose }) => {
           )}
           
         </Box>
-        {/* <AddEmployeeDialog open={openAddUser} onClose={handleCloseAddUser} onSave={fetchUsers}  /> */}
-        <AddEmployeeDialog open={openAddUser} onClose={handleCloseAddUser} onSave={fetchUsers} employeeId={selectedUser?.employeeId} />
-        
+        <AddEmployeeDialog open={openAddUser} onClose={handleCloseAddUser} onSave={fetchUsers} employeeId={selectedUser?.employeeId} /> 
       </Box>
 
       <TableContainer component={Paper} sx={{
@@ -218,9 +184,7 @@ const EmployeesList = ({ onClose }) => {
                   />
                 </TableCell>
               )}
-              {/*
-                
-              */}
+
               <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '15px', color: 'white' }}>Photo</TableCell>
               <TableCell align='center' sx={{ fontWeight: 'bold', fontSize: '15px', color: 'white' }}>Employee ID</TableCell>
               <TableCell align='left' sx={{ fontWeight: 'bold', fontSize: '15px', color: 'white' }}>Name</TableCell>
@@ -230,14 +194,10 @@ const EmployeesList = ({ onClose }) => {
               {userRole === 'Manager' && (
                 <TableCell align="center" sx={{ fontWeight: 'bold', fontSize: '15px', color: 'white' }}>Actions</TableCell>
               )}
-              {/*
-                
-              */}
+
             </TableRow> 
           </TableHead>
           <TableBody>
-              
-            {/* {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((user) => ( */}
             {filteredUsers.map((user)=>(
               <TableRow key={user.id} selected={selectedUsers.includes(user.id)}>
                 {userRole === 'Manager' && (
@@ -292,18 +252,7 @@ const EmployeesList = ({ onClose }) => {
           user={viewUser}
         />
       </TableContainer>
-
-      {/* <TablePagination
-        component="div"
-        rowsPerPageOptions={[5, 10, 25]}
-        count={filteredUsers.length}
-        rowsPerPage={rowsPerPage}
-        page={page}
-        onPageChange={handleChangePage}
-        onRowsPerPageChange={handleChangeRowsPerPage}
-      /> */}
-
-      <EditEmployeeDialog
+         <EditEmployeeDialog
         open={editDialogOpen}
         onClose={handleEditDialogClose}
         user={selectedUser}
