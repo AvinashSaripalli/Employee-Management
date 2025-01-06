@@ -6,7 +6,6 @@ import { useNavigate } from "react-router-dom";
 function Login() {
   const [loginValues, setLoginValues] = useState({
     email: "",
-    //companyName: "",
     password: "",
   });
   const navigate = useNavigate();
@@ -60,14 +59,6 @@ function Login() {
             required
             margin="normal"
           />
-          {/* <TextField
-            label="Company Name"
-            name="companyName"
-            onChange={handleChange}
-            fullWidth
-            required
-            margin="dense"
-          /> */}
           <TextField
             label="Password"
             type="password"
