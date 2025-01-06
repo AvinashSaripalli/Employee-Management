@@ -3,12 +3,6 @@ import {TextField, Button, Box, Typography, FormControl, Container, MenuItem, Se
 } from "@mui/material";
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
-// import { PhoneInput } from "react-international-phone";
-// import "react-international-phone/style.css";
-
-// import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-// import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
-// import { DatePicker } from "@mui/x-date-pickers/DatePicker";
 
 function Register() {
   const [formValues, setFormValues] = useState({
@@ -20,8 +14,6 @@ function Register() {
     companyName: "",
     role: "",
     department: "",
-    // technicalSkills: [],
-    // dateOfBirth: null,
     designation: "",
     jobLocation: "",
     photo: null,
@@ -29,18 +21,6 @@ function Register() {
 
   const [errors, setErrors] = useState({});
   const navigate = useNavigate();
-
-  // const skillsOption = [
-  //   "JavaScript",
-  //   "React",
-  //   "Node.js",
-  //   "Python",
-  //   "Java",
-  //   "C#",
-  //   "SQL",
-  //   "HTML",
-  //   "CSS",
-  // ];
 
   const validate = () => {
     const newErrors = {};
@@ -68,13 +48,7 @@ function Register() {
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email)) {
       newErrors.email = "Invalid Email address";
     }
-    
-    // if (!formValues.email.trim()) {
-    //   newErrors.email = "Email is Required";
-    // } 
-    // else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formValues.email)) {
-    //   newErrors.email = "Invalid email format";
-    // }
+
     if (!formValues.phoneNumber.trim()) {
       newErrors.phoneNumber = "Enter your Phone number";
     }
@@ -107,14 +81,6 @@ function Register() {
   const handlePhotoChange = (e) => {
     setFormValues({ ...formValues, photo: e.target.files[0] });
   };
-
-  // const handleSkillsChange = (event, value) => {
-  //   setFormValues({ ...formValues, technicalSkills: value });
-  // };
-
-  // const handleDateChange = (value) => {
-  //   setFormValues({ ...formValues, dateOfBirth: value });
-  // };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -232,44 +198,7 @@ function Register() {
               <MenuItem value="Kolkata">Kolkata</MenuItem>
             </Select>
           </FormControl>
-          {/* <Autocomplete
-            multiple
-            options={skillsOption}
-            value={formValues.technicalSkills}
-            onChange={handleSkillsChange}
-            renderTags={(value, getTagProps) =>
-              value.map((option, index) => (
-                <Chip
-                  variant="outlined"
-                  label={option}
-                  {...getTagProps({ index })}
-                  key={index}
-                />
-              ))
-            }
-            renderInput={(params) => (
-              <TextField {...params} label="Technical Skills" />
-            )}
-          />
-          {errors.technicalSkills && (
-            <Typography color="error">{errors.technicalSkills}</Typography>
-          )}
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <DatePicker
-              label="Date of Birth"
-              name="dateOfBirth"
-              sx={{width :520}}
-              value={formValues.dateOfBirth}
-              onChange={handleDateChange}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  error={!!errors.dateOfBirth}
-                  helperText={errors.dateOfBirth}
-                />
-              )}
-            />
-          </LocalizationProvider> */}
+          
           <TextField
             label="Email"
             name="email"
@@ -280,18 +209,7 @@ function Register() {
             error={!!errors.email}
             helperText={errors.email}
           />
-          {/* <PhoneInput
-            defaultCountry="in"
-            name="phoneNumber"
-            value={formValues.phoneNumber}
-            onChange={handlePhoneChange}
-          />
-          {errors.phoneNumber && (
-            <Typography color="error" variant="body2">
-              {errors.phoneNumber}
-            </Typography>
-          )} */}
-          
+         
           <TextField
             label="Phone Number"
             name="phoneNumber"
@@ -313,16 +231,7 @@ function Register() {
             error={!!errors.password}
             helperText={errors.password}
           />
-          {/* <input type="file" onChange={handlePhotoChange} />
-          <Button
-            type="submit"
-            variant="contained"
-            color="primary"
-            fullWidth
-            sx={{ mt: 2 }}
-          >
-            Register
-          </Button> */}
+  
           <Button
               variant="outlined"
               component="label"
