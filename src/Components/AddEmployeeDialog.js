@@ -300,10 +300,7 @@ const AddEmployeeDialog = ({ open, onClose, onSave,employeeId }) => {
               sx={{ml:2.25,width:'350px',mt:1,mr:1}}
             />
           </div>
-          {/*
-            
-
-          */}
+          
           <div style={{ display: "flex", alignItems: "flex-start",  }}>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <DatePicker
