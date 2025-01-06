@@ -1,35 +1,12 @@
 import React, { useRef } from 'react';
 import { Dialog, DialogTitle, DialogContent, Typography, Box, IconButton, Divider, Button, ListItem, Card, CardMedia, CardContent, Chip, Stack, Paper } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
-// import jsPDF from 'jspdf';
-// import html2canvas from 'html2canvas';
 import dayjs from 'dayjs';
 import Grid2 from '@mui/material/Grid2';
 
 
 const ViewEmployeeDialog = ({ open, onClose, user }) => {
-   //const contentRef = useRef();
-
   if (!user) return null;
-
-    // const downloadPdf = async () => {
-    //   const content = contentRef.current;
-
-    //   try {
-    //     const canvas = await html2canvas(content, { scale: 2 });
-    //     const imageData = canvas.toDataURL('image/png');
-    //     const pdf = new jsPDF();
-
-    //     const pdfWidth = pdf.internal.pageSize.getWidth();
-    //     const pdfHeight = (canvas.height * pdfWidth) / canvas.width;
-
-    //     pdf.addImage(imageData, 'PNG', 0, 0, pdfWidth, pdfHeight);
-    //     pdf.save('User Details.pdf');
-    //   } catch (error) {
-    //     console.error('Error generating PDF:', error);
-    //   }
-    // };
- 
 
   return (
     <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
@@ -50,11 +27,8 @@ const ViewEmployeeDialog = ({ open, onClose, user }) => {
       </DialogTitle>
       <Divider />
       <DialogContent>
-      {/* <DialogContent ref={contentRef}> */}
 
         <Stack spacing={2}>
-                  
-        {/* <Card sx={{ display: 'flex' }} elevation={5}>  */}
         <Card  sx={{
            display:'flex',boxShadow: (theme) => theme.shadows[4] , 
           borderRadius: 2, }} >
@@ -88,7 +62,6 @@ const ViewEmployeeDialog = ({ open, onClose, user }) => {
        <Card  sx={{
           boxShadow: (theme) => theme.shadows[4],
           borderRadius: 2, }} >
-        {/* <Grid2 container sx={{borderRadius:'1'}} spacing={3} rowSpacing={2}> */}
         <Grid2 container spacing={1.6} rowSpacing={1.7}>
             <Grid2 size={5}> 
             </Grid2>
@@ -173,11 +146,6 @@ const ViewEmployeeDialog = ({ open, onClose, user }) => {
           </Card>
           </Stack>
       </DialogContent>
-      {/* <Box display="flex" justifyContent="center" py={2}>
-        <Button variant='outlined' color="primary" onClick={downloadPdf}>
-          Download PDF
-        </Button>
-      </Box> */}
     </Dialog>
   );
 };
