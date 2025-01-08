@@ -130,6 +130,53 @@ app.get('/api/users-by-month', (req, res) => {
   });
 });
 
+app.get('/api/users-by-location', (req, res) => {
+  const { companyName } = req.query;
+
+  if (!companyName) {
+    return res.status(400).json({ error: 'Company name is required' });
+  }
+
+  const query = `
+    SELECT jobLocation AS locationName, COUNT(*) AS locations 
+    FROM users 
+    WHERE companyName = ? 
+    GROUP BY jobLocation
+  `;
+
+  db.query(query, [companyName], (err, results) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(results);
+  });
+});
+
+
+app.get('/api/users-by-departments', (req, res) => {
+  const { companyName } = req.query;
+
+  if (!companyName) {
+    return res.status(400).json({ error: 'Company name is required' });
+  }
+
+  const query = `
+    SELECT department AS departmentName, COUNT(*) AS indepartment 
+    FROM users 
+    WHERE companyName = ? 
+    GROUP BY department
+  `;
+
+  db.query(query, [companyName], (err, results) => {
+    if (err) {
+      console.error('Database query error:', err);
+      return res.status(500).json({ error: 'Database error' });
+    }
+    res.json(results);
+  });
+});
+
 app.get('/api/users', (req, res) => {
   const { companyName, role } = req.query;
 
