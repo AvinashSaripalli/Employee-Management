@@ -91,6 +91,22 @@ app.post('/api/login', (req, res) => {
   });
 });
 
+app.patch("/api/users/update", (req, res) => {
+  const { id, designation, phoneNumber } = req.body;
+
+  const query = 
+  ` UPDATE users
+    SET designation = ?, phoneNumber = ?
+    WHERE id = ? `;
+  db.query(query, [designation, phoneNumber, id], (err, result) => {
+    if (err) {
+      console.error(err);
+      return res.status(500).send("Error updating user.");
+    }
+    res.send({ success: true, message: "User updated successfully" });
+  });
+});
+
 app.get('/api/users-by-month', (req, res) => {
   const { companyName } = req.query;
 
