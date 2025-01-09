@@ -85,6 +85,19 @@ const Profile = () => {
             alt={`${userData.userFirstName} ${userData.userLastName}`}
             sx={{ width: 120, height: 120, mr: 4, ml: 9 }}
           />
+          <IconButton
+            sx={{
+              overlap:"circular",
+              position: "absolute",
+              bottom: 6,
+              right: 20,
+              backgroundColor: "white",
+              boxShadow: 1,
+              "&:hover": { backgroundColor: "lightgray" },
+            }}
+          >
+            <PhotoCameraRoundedIcon/>
+          </IconButton> 
           <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: "26px" }}>
             {userData.userLastName} {userData.userFirstName}
           </Typography>
