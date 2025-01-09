@@ -5,18 +5,18 @@ import axios from 'axios';
 
 const Dashboard = () => {
   const [monthOrder, setMonthOrder] = useState([
-    { name: "January", userCount: 0 },
-    { name: "February", userCount: 0 },
-    { name: "March", userCount: 0 },
-    { name: "April", userCount: 0 },
-    { name: "May", userCount: 0 },
-    { name: "June", userCount: 0 },
-    { name: "July", userCount: 0 },
-    { name: "August", userCount: 0 },
-    { name: "September", userCount: 0 },
-    { name: "October", userCount: 0 },
-    { name: "November", userCount: 0 },
-    { name: "December", userCount: 0 },
+    { name: "January", employees: 0 },
+    { name: "February", employees: 0 },
+    { name: "March", employees: 0 },
+    { name: "April", employees: 0 },
+    { name: "May", employees: 0 },
+    { name: "June", employees: 0 },
+    { name: "July", employees: 0 },
+    { name: "August", employees: 0 },
+    { name: "September", employees: 0 },
+    { name: "October", employees: 0 },
+    { name: "November", employees: 0 },
+    { name: "December", employees: 0 },
   ]);
 
   const [locationOrder, setLocationOrder]=useState([
@@ -59,7 +59,7 @@ const Dashboard = () => {
           const foundUser = data.find((item) => item.month === index + 1);
           return {
             name: month.name,
-            userCount: foundUser ? foundUser.userCount : 0,
+            employees: foundUser ? foundUser.employees : 0,
           };
         });
         setMonthOrder(updatedMonthOrder);
