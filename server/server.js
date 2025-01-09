@@ -115,7 +115,7 @@ app.get('/api/users-by-month', (req, res) => {
   }
 
   const query = `
-    SELECT MONTH(created_at) AS month, COUNT(*) AS userCount 
+    SELECT MONTH(created_at) AS month, COUNT(*) AS employees 
     FROM users 
     WHERE companyName = ? 
     GROUP BY MONTH(created_at)
