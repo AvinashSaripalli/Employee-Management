@@ -241,7 +241,7 @@ const AddEmployeeDialog = ({ open, onClose, onSave,employeeId }) => {
               onChange={handleChange}
               label="Department"
             >
-              <MenuItem value="Software Developement">Software Development</MenuItem>
+              <MenuItem value="Software Development">Software Development</MenuItem>
               <MenuItem value="Human Resources"> Human Resources</MenuItem>
             </Select>
           </FormControl>
