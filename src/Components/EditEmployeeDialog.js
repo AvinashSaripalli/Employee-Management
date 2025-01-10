@@ -287,7 +287,6 @@ const EditEmployeeDialog = ({ open, onClose, user, onSave }) => {
           error={!!errors.phoneNumber} 
           helperText={errors.phoneNumber} 
         />
-        {/**/}
         <TextField
           fullWidth 
           margin="dense" 
@@ -360,10 +359,8 @@ const EditEmployeeDialog = ({ open, onClose, user, onSave }) => {
           renderInput={(params) => (
             <TextField {...params} label="Technical Skills" sx={{width:535.2}}margin="dense" fullWidth/>
           )}
-        />
-       
-        
-       
+        />    
+            
       </DialogContent>
       <DialogActions>
         <Button onClick={onClose} color="error" variant="contained">Cancel</Button>
