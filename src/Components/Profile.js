@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Box, Paper, Typography, Avatar, IconButton, TextField, Button, Grid2 } from "@mui/material";
+import { Box, Paper, Typography, Avatar, IconButton, TextField, Button, Grid2,Input } from "@mui/material";
 import EditIcon from "@mui/icons-material/Edit";
+import PhotoCameraRoundedIcon from '@mui/icons-material/PhotoCameraRounded';
 import axios from "axios";
 
 const Profile = () => {
@@ -9,6 +10,8 @@ const Profile = () => {
     phoneNumber: false,  
   });
 
+  //const [photoFile, setPhotoFile] = useState(null);
+  
   const [userData, setUserData] = useState({
     userPhoto: localStorage.getItem("userPhoto") || "",
     userDesignation: localStorage.getItem("userDesignation") || "",
@@ -18,7 +21,7 @@ const Profile = () => {
     userPhoneNumber: localStorage.getItem("userPhoneNumber") || "",
     userId: localStorage.getItem("userId") || "",
   });
-
+  
   useEffect(() => {
     Object.keys(userData).forEach((key) => {
       localStorage.setItem(key, userData[key]);
@@ -28,6 +31,11 @@ const Profile = () => {
   const handleEditClick = (field) => {
     setEditMode((prevState) => ({ ...prevState, [field]: true }));
   };
+
+  // const handleSaveClick = (field) => {
+  //   setEditMode((prevState) => ({ ...prevState, [field]: false }));
+  //   localStorage.setItem(field, userData[field]);
+  // };
 
   const handleSaveClick = async (field) => {
     setEditMode((prevState) => ({ ...prevState, [field]: false }));
@@ -39,15 +47,16 @@ const Profile = () => {
       id: userId,
       designation: userData.userDesignation,
       phoneNumber: userData.userPhoneNumber,
+      //photo: userData.userPhoto,
     };
   
     try {
       const response = await axios.patch("http://localhost:5000/api/users/update", dataToUpdate);
   
       if (response.data.success) {
-        alert("Updated successfully!");
+        //alert("Updated successfully!");
       } else {
-        alert("Update failed.");
+        //alert("Update failed.");
       }
     } catch (error) {
       console.error("Error updating data:", error);
@@ -55,11 +64,52 @@ const Profile = () => {
     }
   };
   
-  
   const handleChange = (e, field) => {
     setUserData({ ...userData, [field]: e.target.value });
   };
 
+  // const handlePhotoChange = (e) => {
+  //   const file = e.target.files[0];
+  //   if (file) {
+  //     const photoURL = URL.createObjectURL(file); 
+  //     setUserData((prevState) => ({
+  //       ...prevState,
+  //       userPhoto: photoURL,
+  //     }));
+  //     setPhotoFile(file); 
+  //     localStorage.setItem("userPhoto", photoURL); 
+  //   }
+  // };
+
+  const handlePhotoChange = async (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      const formData = new FormData();
+      formData.append("photo", file);
+      formData.append("id", userData.userId);
+  
+      try {
+        const response = await axios.patch(
+          "http://localhost:5000/api/users/update-photo",
+          formData,
+          { headers: { "Content-Type": "multipart/form-data" } }
+        );
+  
+        if (response.data.success) {
+          const photoURL = response.data.photoUrl;
+          setUserData((prevState) => ({ ...prevState, userPhoto: photoURL }));
+          localStorage.setItem("userPhoto", photoURL);
+          alert("sucessfully Updated Photo");
+        } else {
+          alert("Failed to update photo.");
+        }
+      } catch (error) {
+        console.error("Error uploading photo:", error);
+        alert("Failed to upload photo.");
+      }
+    }
+  };
+  
   return (
     <Box sx={{ mt: 4 }}>
       <Paper
@@ -72,7 +122,6 @@ const Profile = () => {
           flexDirection: "column",
         }}
       >
-    
         <Box
           sx={{
             display: "flex",
@@ -80,12 +129,14 @@ const Profile = () => {
             mb: 2,
           }}
         >
+        <Box sx={{ position: "relative", display: "inline-block" }}>
           <Avatar
-            src={userData.userPhoto} 
+            src={userData.userPhoto}
             alt={`${userData.userFirstName} ${userData.userLastName}`}
-            sx={{ width: 120, height: 120, mr: 4, ml: 9 }}
+            sx={{ width: 140, height: 140, mr: 3, ml: 8 }}
           />
-          <IconButton
+           <IconButton
+            component="label"
             sx={{
               overlap:"circular",
               position: "absolute",
@@ -96,8 +147,17 @@ const Profile = () => {
               "&:hover": { backgroundColor: "lightgray" },
             }}
           >
+           
             <PhotoCameraRoundedIcon/>
+            <input 
+              type="file"
+              accept="image/*"
+              style={{ display: "none" }}
+              onChange={handlePhotoChange}
+            />
           </IconButton> 
+        </Box>
+          
           <Typography variant="h6" sx={{ fontWeight: "bold", fontSize: "26px" }}>
             {userData.userLastName} {userData.userFirstName}
           </Typography>
@@ -149,7 +209,6 @@ const Profile = () => {
                 </>
               )}
             </Grid2>
-
             <Grid2 size={4}>
               <Typography variant="body2" sx={{ fontWeight: "bold" }}>
                 Phone Number:
@@ -193,3 +252,4 @@ const Profile = () => {
 };
 
 export default Profile;
+
