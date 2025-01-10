@@ -9,8 +9,6 @@ const Profile = () => {
     designation: false,
     phoneNumber: false,  
   });
-
-  //const [photoFile, setPhotoFile] = useState(null);
   
   const [userData, setUserData] = useState({
     userPhoto: localStorage.getItem("userPhoto") || "",
@@ -32,11 +30,6 @@ const Profile = () => {
     setEditMode((prevState) => ({ ...prevState, [field]: true }));
   };
 
-  // const handleSaveClick = (field) => {
-  //   setEditMode((prevState) => ({ ...prevState, [field]: false }));
-  //   localStorage.setItem(field, userData[field]);
-  // };
-
   const handleSaveClick = async (field) => {
     setEditMode((prevState) => ({ ...prevState, [field]: false }));
     localStorage.setItem(field, userData[field]);
@@ -47,16 +40,16 @@ const Profile = () => {
       id: userId,
       designation: userData.userDesignation,
       phoneNumber: userData.userPhoneNumber,
-      //photo: userData.userPhoto,
+      
     };
   
     try {
       const response = await axios.patch("http://localhost:5000/api/users/update", dataToUpdate);
   
       if (response.data.success) {
-        //alert("Updated successfully!");
+        alert("Updated successfully!");
       } else {
-        //alert("Update failed.");
+        alert("Update failed.");
       }
     } catch (error) {
       console.error("Error updating data:", error);
@@ -67,19 +60,6 @@ const Profile = () => {
   const handleChange = (e, field) => {
     setUserData({ ...userData, [field]: e.target.value });
   };
-
-  // const handlePhotoChange = (e) => {
-  //   const file = e.target.files[0];
-  //   if (file) {
-  //     const photoURL = URL.createObjectURL(file); 
-  //     setUserData((prevState) => ({
-  //       ...prevState,
-  //       userPhoto: photoURL,
-  //     }));
-  //     setPhotoFile(file); 
-  //     localStorage.setItem("userPhoto", photoURL); 
-  //   }
-  // };
 
   const handlePhotoChange = async (e) => {
     const file = e.target.files[0];
