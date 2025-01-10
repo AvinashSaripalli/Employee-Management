@@ -51,7 +51,7 @@ const ViewEmployeeDialog = ({ open, onClose, user }) => {
                 <Typography variant='h6' fontWeight={'bold'}>{user.lastName} {user.firstName}</Typography>
               </ListItem>
               <ListItem>
-                <Typography variant="body1">Email: {user.email}</Typography>
+                <Typography variant="body1"><span style={{fontWeight:'bold'}}>Email: </span> {user.email}</Typography>
               </ListItem>
               </CardContent>
           </Box>
