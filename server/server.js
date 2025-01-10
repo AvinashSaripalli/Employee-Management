@@ -107,6 +107,28 @@ app.patch("/api/users/update", (req, res) => {
   });
 });
 
+app.patch("/api/users/update-photo", upload.single("photo"), (req, res) => {
+  const { id } = req.body;
+  const photo = req.file ? `/uploads/${req.file.filename}` : null;
+
+  if (!id || !photo) {
+    return res.status(400).json({ success: false, message: "Invalid request." });
+  }
+
+  const query = `UPDATE users SET photo = ? WHERE id = ?`;
+  db.query(query, [photo, id], (err, result) => {
+    if (err) {
+      console.error("Error updating photo:", err);
+      return res.status(500).json({ success: false, message: "Failed to update photo." });
+    }
+    res.status(200).json({
+      success: true,
+      message: "Photo updated successfully.",
+      photoUrl: `${req.protocol}://${req.get("host")}${photo}`,
+    });
+  });
+});
+
 app.get('/api/users-by-month', (req, res) => {
   const { companyName } = req.query;
 
